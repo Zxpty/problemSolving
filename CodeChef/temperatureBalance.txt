@@ -1,0 +1,41 @@
+There are n lottery tickets with numbers Ai.
+- Each number was distinct.
+- Cheft bought the first ticket A1.
+
+He is now wondering whether he won the lottery. Here is how the winder is decided:
+
+
+
+- primero verificar que si mx == a[0] = true
+validos = mx - (mx+sc_mx+1)/2 + 1.
+ans = 1e6 -mx+ validos.
+
+X = 1<=x<=ai < mx
+Esto se cumple por que ai!=mx, abs(x-ai)<abs(x-mx).
+
+
+para otro caso:
+validos min(a[i])<=x<=a[0] // a[0] - (a[0]+mn)/2 + 1.
+5
+3 1 4 5 2
+
+15  8
+12 13 14 15
+
+16 8
+
+12 13 14 15 16
+
+
+15 20
+
+17
+
+
+15 21
+
+18
+15 16 17 18
+
+3
+5 1 12
