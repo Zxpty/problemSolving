@@ -47,39 +47,28 @@ typedef int64_t i64;
 const long long MX = 1e9+7;
 
 void GA(){
-	// one its impossible
-	int two = 0, three = 0;
 	int n; read(n);
 	char c; read(c);
 	string s; read(s);
-	for(int i = 0; i < n; i += 2){
-		if(s[i] != c) two++;
+	int idx = -1;
+	bool ok = 1;
+	for(int i = 0; i < n; i++){
+		if(s[i] != c) ok = 0;
+		else idx = i;
 	}
-	for(int i = 1; i < n; i += 2){
-		if(s[i] != c) three++;
-	}
-	if(two == 0 && three == 0){
+	if(ok){
 		ps(0);
 		return;
 	}
 
-	if(two && three){
-		ps(2);
-		ps(2, 3);
+	if(idx >= n / 2){
+		ps(1);
+		ps(idx + 1);
 		return;
 	}
 
-	if(two && three == 0){
-		ps(1);
-		ps(2);
-		return;
-	}
-
-	if(three && two == 0){
-		ps(1);
-		ps(3);
-		return;
-	}
+	ps(2);
+	ps(n - 1, n);
 }
 
 int main(){
