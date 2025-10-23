@@ -52,7 +52,6 @@ void GA(){
 	int rank = 25;
 	int w = 0;
 	int p = 0;
-	int left = 0;
 
 	auto cPoints = [&](int rank){
 		if(rank >= 21) return 2;

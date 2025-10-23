@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import express from "express";
-import bodyParser from "body-parser";
+import express from "express"
+import bodyParser from "body-parser"
 import readlineSync from 'readline-sync'
 import fs from 'fs'
 import path from 'path'
@@ -13,7 +13,7 @@ const args = {
 	number: readlineSync.questionInt('How many problems?: ', {default: 1}),
 	text: readlineSync.keyInYNStrict('Add txt files?'),
 	// otras opciones si es necesario
-};
+}
 
 const curDirectory = process.cwd();
 
