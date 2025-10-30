@@ -1,42 +1,101 @@
 #include <bits/stdc++.h>
+#include <cstdlib>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+#include <sys/types.h>
+
 #ifdef LOCAL
-#include "../debug.cpp"
+#include "debug.cpp"
 #else
 #define dbg(...)
 #endif
 #define cpu() ios::sync_with_stdio(false);cin.tie(nullptr);
+
 using namespace std;
-typedef long long ll;
-typedef vector<int> vi;
-const ll mod = 1e9+7;
-void solve()
-{
-  int n; cin>>n;
-  string s; cin>>s;
-  map<string,int> mp;
-  for(int i=0;i<n-1;i++){
-    string x = s.substr(i,2);
-    mp[x]++;
-  }
-  int mx = 0;
-  string ans;
-  for(auto[first,second]: mp){
-    if(mx<=second){
-      mx = second;
-      ans = first;
-    }
-  }
-  cout<<ans<<'\n';
-}
-int main()
-{
-    cpu();
-    int t = 1;
-    //cin >> t;
-    while (t--)
-    {
-        solve();
-    }
-    return 0;
+using namespace __gnu_pbds;
+template <class T>
+using ordered_set = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
+
+#define pb push_back
+#define sz(a) ((int)(a).size())
+#define ff first
+#define ss second
+#define all(a) (a).begin(), (a).end()
+#define allr(a) (a).rbegin(), (a).rend()
+#define approx(a) fixed << setprecision(a)
+
+template <class T> void read(vector<T> &v);
+template <class F, class S> void read(pair<F, S> &p);
+template <class T, size_t Z> void read(array<T, Z> &a);
+template <class T> void read(T &x) {cin >> x;}
+template <class R, class... T> void read(R& r, T&... t){read(r); read(t...);};
+template <class T> void read(vector<T> &v) {for(auto& x : v) read(x);}
+template <class F, class S> void read(pair<F, S> &p) {read(p.ff, p.ss);}
+template <class T, size_t Z> void read(array<T, Z> &a) { for(auto &x : a) read(x); }
+
+template <class F, class S> void pr(const pair<F, S> &x);
+template <class T> void pr(const T &x) {cout << x;}
+template <class R, class... T> void pr(const R& r, const T&... t) {pr(r); pr(t...);}
+template <class F, class S> void pr(const pair<F, S> &x) {pr("{", x.ff, ", ", x.ss, "}\n");}
+void ps() {pr("\n");}
+template <class T> void ps(const T &x) {pr(x); ps();}
+template <class T> void ps(vector<T> &v) {for(auto& x : v) pr(x, ' '); ps();}
+template <class T, size_t Z> void ps(const array<T, Z> &a) { for(auto &x : a) pr(x, ' '); ps(); }
+template <class F, class S> void ps(const pair<F, S> &x) {pr(x.ff, ' ', x.ss); ps();}
+template <class R, class... T> void ps(const R& r,  const T &...t) {pr(r, ' '); ps(t...);}
+
+
+typedef int64_t i64;
+const int MX = 1e5;
+
+void GA(){
+	int n, m; read(n, m);
+	vector<vector<int>> r(n, vector<int>(m));
+	for(int i = 0; i < n; i++){
+		for(int j = 0; j < m; j++){
+			cin >> r[i][j];
+		}
+	}
+	vector<pair<int, int>> delta = {{1, 0}, {0, 1}, {0, - 1}, {-1, 0}};
+	auto checkt = [&](int x, int y, int newx, int newy){
+		return newx >= 0 && newx < n && newy >= 0 && newy < m && ((abs(x - newx) + (abs(y - newy)))) == 1;
+	};
+	for(int i = 0; i < n; i++){
+		for(int j = 0; j < m; j++){
+			int mx = 0;
+			int cn = 0;
+			int cn2 = 0;
+			for(auto [rx, ry] : delta){
+				int new_x = i + rx;
+				int new_y = j + ry;
+				if(checkt(i, j, new_x, new_y)){
+					cn2++;
+					if(r[i][j] > r[new_x][new_y]) cn++;
+					dbg(r[i][j], r[new_x][new_y]);
+					dbg(i, j, new_x, new_y);
+					mx = max(mx, r[new_x][new_y]);
+				}
+			}
+			if(cn2 == cn) r[i][j] = mx;
+		}
+	}
+
+	for(int i = 0; i < n; i++){
+		for(int j = 0; j < m; j++){
+			cout << r[i][j] << " ";
+		}
+		ps();
+	}
+	ps();
 }
 
+int main(){
+	cpu();
+	int t = 1;
+	cin >> t;
+	while (t--)
+	{
+		GA();
+	}
+	return 0;
+}
