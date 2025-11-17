@@ -1,0 +1,15 @@
+Bob abrio una panaderia
+
+Bob hornea N bollos para vender
+
+a = price de cada bollo usualmente.
+
+Promocion de bob:
+- bob elige un entero 0 <= k <= min(n, b)
+- bob vende los k bollos en un precio modificado:
+	-> price de cada bollo = b - i + 1 coins (1 <= i <= k)
+- los otros bollos n - k son vendidos en su precion ormal.
+
+K puede ser 0, si es asi el vende todos los bollos en (a coins)
+
+

@@ -47,13 +47,25 @@ typedef int64_t i64;
 const int MX = 1e5;
 
 void GA(){
-	
+	int n, k; read(n, k);
+	string s; read(s);
+	int ans = 0;
+	int last = -1e9;
+	for(int i = 0; i < n; i++){
+		if(s[i] == '1' and i - last >= k){
+			ans++;
+		}
+		if(s[i] == '1'){
+			last = i;
+		}
+	}
+	ps(ans);
 }
 
 int main(){
 	cpu();
 	int t = 1;
-	//cin >> t;
+	cin >> t;
 	while (t--)
 	{
 		GA();

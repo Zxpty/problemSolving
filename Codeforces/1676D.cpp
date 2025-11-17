@@ -34,7 +34,52 @@ typedef vector<int> vi;
 const ll mod = 1e9+7;
 
 void solve(){
-	
+	int n, m; read(n, m);
+	vector<vector<int>> r(n, vector<int>(m));
+	for(int i = 0; i < n; i++){
+		for(int j = 0; j < m; j++){
+			cin >> r[i][j];
+		}
+	}
+	auto check = [&](int x, int y){
+		return x >= 0 and x < n and y >= 0 and  y < m;
+	};
+	int ans = 0;
+	for(int i = 0; i < n; i++){
+		for(int j = 0; j < m; j++){
+			int x = i, y = j;
+			int sum = r[i][j];
+			x--,y--;
+			while(check(x, y)){
+				sum += r[x][y];
+				x--, y--;
+			}
+			x = i, y = j;
+
+			x++, y++;
+			while(check(x, y)){
+				sum += r[x][y];
+				x++, y++;
+			}
+
+			x = i, y = j;
+			x--, y++;
+			while(check(x, y)){
+				sum += r[x][y];
+				x--, y++;
+			}
+
+			x = i, y = j;
+			x++, y--;
+			while(check(x, y)){
+				sum += r[x][y];
+				x++, y--;
+			}
+			//dbg(i, j, vis);
+			ans = max(ans, sum);
+		}
+	}
+	ps(ans);
 }
 
 int main(){
