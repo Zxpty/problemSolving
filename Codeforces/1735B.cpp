@@ -1,4 +1,3 @@
-#include <algorithm>
 #include <bits/stdc++.h>
 #ifdef LOCAL
 #include "debug.cpp"
@@ -6,6 +5,7 @@
 #define dbg(...)
 #endif
 #define cpu() ios::sync_with_stdio(false);cin.tie(nullptr);
+#define INF INT_MAX;
 using namespace std;
 template <class T> void read(vector<T> &v);
 template <class F, class S> void read(pair<F, S> &p);
@@ -32,10 +32,18 @@ template <class R, class... T> void ps(const R& r,  const T &...t) {pr(r, ' '); 
 typedef long long ll;
 typedef vector<int> vi;
 const ll mod = 1e9+7;
-
 void solve(){
-	
-
+	int n; read(n);
+	int small = INF;
+	vector<int> r(n); read(r);
+	for(int x : r) small = min(small, x);
+	int cuts = 0;
+	for(int i = 0; i < n; i++){
+		if(r[i] >= small * 2){
+			cuts += (r[i] + 2 * small - 2) / (2 * small - 1) - 1;
+		}
+	}
+	ps(cuts);
 }
 
 int main(){

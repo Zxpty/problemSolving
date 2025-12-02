@@ -74,7 +74,12 @@ void ONO(){
 
 int main(){
 	cpu();
-	ONO();
+	int t = 1;
+	//cin >> t;
+	while (t--)
+	{
+		ONO();
+	}
 	return 0;
 }
 

@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <bits/stdc++.h>
 #include <cmath>
 #include <cstdlib>
@@ -49,19 +50,21 @@ typedef int64_t i64;
 const int MX = 1e5;
 
 void GA(){
-	int x1, y1, x2, y2, x3, y3; read(x1, y1, x2, y2, x3, y3);
-	if(y1 == y2 and y3 == y2){
-		ps(1);
-		return;
-	}
-	int ans = 0;
-	int new_x = (x2 + x3) / 2;
-	int new_y = abs(y3 - y2) + 1;
+	int xa, ya, xb, yb, xc, yc; read(xa, ya, xb, yb, xc, yc);
+	int cm = 1;
+	int bxdiff = xb - xa;
+	int bydiff = yb - ya;
+	int cxdiff = xc - xa;
+	int cydiff = yc - ya;
 
-	dbg(new_x,  new_y);
-	ans += new_y - y1 + 1;
-	ans += (new_x + x1 + 1) / 2;
-	ps(ans);
+	if(bxdiff < 0 and cxdiff < 0)
+		bxdiff *= -1, cxdiff *= -1;
+	if(bydiff < 0 and cydiff < 0)
+		bydiff *= -1, cydiff *= -1;
+
+	cm += max(min(bxdiff, cxdiff), 0);
+	cm += max(min(bydiff, cydiff), 0);
+	ps(cm);
 }
 
 int main(){

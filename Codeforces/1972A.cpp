@@ -47,13 +47,23 @@ typedef int64_t i64;
 const int MX = 1e5;
 
 void GA(){
-	
+	int n; read(n);
+	vector<int> a(n), b(n); read(a, b);
+	int minus = 0;
+	int cn = 0;
+	for(int i = 0; i < n; i++){
+		if(a[i - minus] > b[i]){
+			minus++;
+			cn++;
+		}
+	}
+	ps(cn);
 }
 
 int main(){
 	cpu();
 	int t = 1;
-	//cin >> t;
+	cin >> t;
 	while (t--)
 	{
 		GA();
