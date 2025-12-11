@@ -42,7 +42,8 @@ template <class R, class... T> void ps(const R& r,  const T &...t) {pr(r, ' '); 
 const int MX = 1e9;
 
 void ONO(){
-	
+	string a, b; read(a, b);
+	ps(a, "san");
 }
 
 int main(){

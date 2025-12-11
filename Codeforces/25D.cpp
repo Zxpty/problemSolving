@@ -41,8 +41,68 @@ template <class R, class... T> void ps(const R& r,  const T &...t) {pr(r, ' '); 
 
 const int MX = 1e9;
 
-void ONO(){
+class DisjointSet {
+	vector<int> rank, parent, size;
+	public:
+	DisjointSet(int n){
+		rank.resize(n + 1, 0);
+		parent.resize(n + 1);
+		size.resize(n + 1, 1);
+		for(int i = 0; i <= n; i++) parent[i] = i;
+	}
+
+	int findUltimateParent(int node){
+		if(node == parent[node]) return node;
+		return parent[node] = findUltimateParent(parent[node]);
+	}
 	
+	bool uninBySize(int u, int v){
+		int ulp_u = findUltimateParent(u);
+		int ulp_v = findUltimateParent(v);
+		if(ulp_u == ulp_v) return 0;
+		if(size[ulp_u] < size[ulp_v]){
+			parent[ulp_u] = ulp_v;
+			size[ulp_v] += size[ulp_u];
+		}else{
+			parent[ulp_v] = ulp_u;
+			size[ulp_u] += size[ulp_v];
+		}
+		return 1;
+	}
+
+};
+
+void ONO(){
+	int n; read(n);
+	DisjointSet dsu(n);
+	vector<pair<int, int>> delEdge;
+	for(int i = 0; i < n - 1; i++){
+		int u, v; read(u, v);
+		if(!dsu.uninBySize(u, v)){
+			delEdge.emplace_back(u, v);
+		}
+	}
+	if(delEdge.empty()){
+		ps(0);
+		return;
+	}
+	set<int> st;
+	for(int i = 1; i <= n; i++){
+		st.insert(dsu.findUltimateParent(i));
+	}
+	vector<pair<int, int>> addEdge;
+	auto it = st.begin();
+	int node = *it;
+	it++;
+	while(it != st.end()){
+		addEdge.push_back({node, *it});
+		it++;
+	}
+	int m = int(addEdge.size());
+	ps(m);
+	for(int i = 0; i < m; i++){
+		ps(delEdge[i].first, delEdge[i].second, addEdge[i].first, addEdge[i].second);
+	}
 }
 
 int main(){

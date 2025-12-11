@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
@@ -42,7 +43,6 @@ template <class R, class... T> void ps(const R& r,  const T &...t) {pr(r, ' '); 
 const int MX = 1e9;
 
 void ONO(){
-	
 }
 
 int main(){

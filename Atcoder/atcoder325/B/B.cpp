@@ -42,7 +42,22 @@ template <class R, class... T> void ps(const R& r,  const T &...t) {pr(r, ' '); 
 const int MX = 1e9;
 
 void ONO(){
-	
+	int n; read(n);
+	vector<int> w(n), x(n);
+	for(int i = 0; i < n; i++){
+		cin >> w[i] >> x[i];
+	}
+	int ans = 0;
+	for(int i = 0; i < 24; i++){
+		int sum = 0;
+		for(int j = 0; j < n; j++){
+			if((i + x[j]) % 24 <= 8){
+				sum += w[j];
+			}
+		}
+		ans = max(ans, sum);
+	}
+	ps(ans);
 }
 
 int main(){

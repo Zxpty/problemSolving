@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
@@ -42,7 +43,12 @@ template <class R, class... T> void ps(const R& r,  const T &...t) {pr(r, ' '); 
 const int MX = 1e9;
 
 void ONO(){
-	
+	int n; read(n);
+	vector<int> r(n); read(r);
+	int start = r[0];
+	int mx = 0;
+	for(int i = 1; i < n; i++) mx = max(mx, r[i]);
+	ps(max(0, mx - start + 1));
 }
 
 int main(){

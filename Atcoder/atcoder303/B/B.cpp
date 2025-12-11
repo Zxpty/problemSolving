@@ -42,7 +42,33 @@ template <class R, class... T> void ps(const R& r,  const T &...t) {pr(r, ' '); 
 const int MX = 1e9;
 
 void ONO(){
-	
+	int n, m; read(n, m);
+	vector<set<int>> st(n + 1);
+	vector<vector<int>> r(m, vector<int>(n));
+	for(int i = 0; i < m; i++){
+		for(int j = 0; j < n; j++){
+			cin >> r[i][j];
+		}
+	}
+	for(int i = 0; i < m; i++){
+		for(int j = 0; j + 1 < n; j++){
+			int a = r[i][j];
+			int c = r[i][j + 1];
+			st[a].insert(c);
+			st[c].insert(a);
+		}
+	}
+
+	int ans = 0;
+	for(int i = 1; i <= n; i++){
+		set<int> ga = st[i];
+		for(int j = i + 1; j <= n; j++){
+			if(ga.find(j) == ga.end()){
+				ans++;
+			}
+		}
+	}
+	ps(ans);
 }
 
 int main(){
@@ -55,3 +81,4 @@ int main(){
 	}
 	return 0;
 }
+

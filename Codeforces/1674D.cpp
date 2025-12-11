@@ -1,6 +1,8 @@
+#include <algorithm>
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
+#include <utility>
 
 #ifdef LOCAL
 #include "debug.cpp"
@@ -42,13 +44,24 @@ template <class R, class... T> void ps(const R& r,  const T &...t) {pr(r, ' '); 
 const int MX = 1e9;
 
 void ONO(){
-	
+	int n; read(n);
+	vector<int> r(n); read(r);
+	vector<int> c = r;
+	sort(c.begin(), c.end());
+	for(int i = n % 2; i < n; i+=2){
+		if(r[i] > r[i + 1]) swap(r[i], r[i + 1]);
+	}
+	if(is_sorted(r.begin(), r.end())){
+		ps("YES");
+	}else{
+		ps("NO");
+	}
 }
 
 int main(){
 	cpu();
 	int t = 1;
-	//cin >> t;
+	cin >> t;
 	while (t--)
 	{
 		ONO();

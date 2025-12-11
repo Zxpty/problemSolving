@@ -42,7 +42,35 @@ template <class R, class... T> void ps(const R& r,  const T &...t) {pr(r, ' '); 
 const int MX = 1e9;
 
 void ONO(){
-	
+	int n, m; read(n, m);
+	vector<string> r(n); read(r);
+	vector<vector<int>> vis(n, vector<int>(m));
+	vector<pair<int, int>> delta = {{1, 0}, {0, 1}, {-1, 1}, {1, -1}, {0,-1}, {-1, 0}, {-1, -1}, {1, 1}};
+	auto valid = [&](int x, int y){
+		return x >= 0 and x < n and y >= 0 and y < m and r[x][y] == '#' and !vis[x][y];
+	};
+
+	function<void(int, int)> dfs = [&](int x, int y){
+		vis[x][y] = 1;
+		for(auto [rx, ry] : delta){
+			int new_x = x + rx;
+			int new_y = y + ry;
+			if(valid(new_x, new_y)){
+				dfs(new_x, new_y);
+			}
+		}
+	};
+	int cn = 0;
+
+	for(int i = 0; i < n; i++){
+		for(int j = 0; j < m; j++){
+			if(valid(i, j)){
+				dfs(i, j);
+				cn++;
+			}
+		}
+	}
+	ps(cn);
 }
 
 int main(){

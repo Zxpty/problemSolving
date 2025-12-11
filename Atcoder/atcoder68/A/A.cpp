@@ -42,9 +42,9 @@ template <class R, class... T> void ps(const R& r,  const T &...t) {pr(r, ' '); 
 const int MX = 1e9;
 
 void ONO(){
-	
+	int n; read(n);
+	cout << "ABC" << n;
 }
-
 int main(){
 	cpu();
 	int t = 1;

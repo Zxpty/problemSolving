@@ -42,7 +42,8 @@ template <class R, class... T> void ps(const R& r,  const T &...t) {pr(r, ' '); 
 const int MX = 1e9;
 
 void ONO(){
-	
+	int n; read(n);
+	ps((n * (n + 1)) / 2);
 }
 
 int main(){

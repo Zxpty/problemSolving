@@ -42,7 +42,18 @@ template <class R, class... T> void ps(const R& r,  const T &...t) {pr(r, ' '); 
 const int MX = 1e9;
 
 void ONO(){
-	
+	int n; read(n);
+	vector<int> r(n + 1);
+	for(int i = 1; i <= n; i++){
+		cin >> r[i];
+	}
+
+	int range = r[1];
+	for(int i = 1; i <= range; i++){
+		range = max(range, min((i + r[i] - 1), n));
+	}
+	//dbg(range);
+	ps(range);
 }
 
 int main(){

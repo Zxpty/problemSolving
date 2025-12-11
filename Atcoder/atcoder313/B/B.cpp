@@ -42,7 +42,24 @@ template <class R, class... T> void ps(const R& r,  const T &...t) {pr(r, ' '); 
 const int MX = 1e9;
 
 void ONO(){
-	
+	int n, m; read(n, m);
+	vector<int> freq(n + 1);
+	for(int i = 0; i < m; i++){
+		int x, y; read(x, y);
+		freq[y]++;
+	}
+	int ans = -1;
+	for(int i = 1; i <= n; i++){
+		if(freq[i] == 0){
+			if(ans != -1){
+				ps(-1);
+				return;
+			}else{
+				ans = i;
+			}
+		}
+	}
+	ps(ans);
 }
 
 int main(){

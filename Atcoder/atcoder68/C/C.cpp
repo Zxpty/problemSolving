@@ -40,9 +40,26 @@ template <class R, class... T> void ps(const R& r,  const T &...t) {pr(r, ' '); 
 
 
 const int MX = 1e9;
-
 void ONO(){
-	
+	int n, m; read(n, m);
+	set<pair<int, int>> st;
+	for(int i = 0; i < m; i++){
+		int a, b; read(a, b);
+		st.insert({a, b});
+	}
+	bool ok = 0;
+	for(int i = 2; i <= n - 1; i++){
+		if(st.count({1, i}) and st.count({i, n})){
+			ok = 1;
+			break;
+		}
+	}
+	if(ok){
+		ps("POSSIBLE");
+		return;
+	}
+
+	ps("IMPOSSIBLE");
 }
 
 int main(){

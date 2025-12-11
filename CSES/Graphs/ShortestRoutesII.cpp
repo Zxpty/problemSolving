@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
@@ -39,10 +40,46 @@ template <class F, class S> void ps(const pair<F, S> &x) {pr(x.first, ' ', x.sec
 template <class R, class... T> void ps(const R& r,  const T &...t) {pr(r, ' '); ps(t...);}
 
 
-const int MX = 1e9;
+const long long INF = 1e18;
 
 void ONO(){
-	
+	int n, m, q; read(n, m, q);
+	vector<vector<long long>> matrix(n, vector<long long>(n, INF));
+	for(int i = 0; i < m; i++){
+		int u, v; read(u, v);
+		long long w; read(w);
+		u--, v--;
+		matrix[u][v] = min(matrix[u][v], w);
+		matrix[v][u] = min(matrix[v][u], w);
+	}
+
+	for(int i = 0; i < n; i++){
+		matrix[i][i] = 0;
+	}
+
+	for(int k = 0; k < n; k++){
+		for(int i = 0; i < n; i++){
+			for(int j = 0; j < n; j++){
+				if(matrix[i][k] == INF || matrix[k][j] == INF) continue;
+				matrix[i][j] = min(matrix[i][j], matrix[i][k] + matrix[k][j]);
+			}
+		}
+	}
+
+	for(int i = 0; i < n; i++){
+		for(int j = 0; j < n; j++){
+			if(matrix[i][j] == INF){
+				matrix[i][j] = -1;
+			}
+		}
+	}
+
+	for(int i = 0; i < q; i++){
+		int from, to; read(from, to);
+		from--, to--;
+		ps(matrix[from][to]);
+	}
+
 }
 
 int main(){

@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
@@ -42,7 +43,15 @@ template <class R, class... T> void ps(const R& r,  const T &...t) {pr(r, ' '); 
 const int MX = 1e9;
 
 void ONO(){
-	
+	int n; read(n);
+	string s; read(s);
+	int ga = n - 11;
+	int cnt = count(s.begin(), s.begin() + ga + 1, '8');
+	if(cnt > ga / 2){
+		ps("YES");
+		return;
+	}
+	ps("NO");
 }
 
 int main(){

@@ -42,16 +42,50 @@ template <class R, class... T> void ps(const R& r,  const T &...t) {pr(r, ' '); 
 const int MX = 1e9;
 
 void ONO(){
+	int n; read(n);
+	long long c; read(c);
+	vector<long long> r(n); read(r);
+	vector<long long> num(n), w(n), w2(n);
+	for(int i = 0; i < n; i++){
+		num[i] = r[i] * r[i];
+		w[i] = r[i] * 4;
+		w2[i] = 2 * 2;
+	}
+
+	long long sum_num = 0;
+	long long w_sum = 0;
+	long long w2_sum = 0;
+	for(int i = 0; i < n; i++){
+		sum_num += num[i];
+		w_sum += w[i];
+		w2_sum += w2[i];
+	}
 	
+	c -= sum_num;
+	long long left = 1;
+	long long right = 2e9;
+	long long res = 1LL;
+	while(left <= right){
+		long long mid = left + (right - left) / 2;
+		__int128 calc = (__int128) mid * mid * w2_sum + (__int128) mid * w_sum;
+		if(calc <= (__int128)c){
+			res = mid;
+			left = mid + 1;
+		}else{
+			right = mid - 1;
+		}
+	}
+	ps(res);
 }
 
 int main(){
 	cpu();
 	int t = 1;
-	//cin >> t;
+	cin >> t;
 	while (t--)
 	{
 		ONO();
 	}
 	return 0;
 }
+

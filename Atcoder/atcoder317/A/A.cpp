@@ -42,7 +42,14 @@ template <class R, class... T> void ps(const R& r,  const T &...t) {pr(r, ' '); 
 const int MX = 1e9;
 
 void ONO(){
-	
+	int n, h, x; read(n, h, x);
+	vector<int> r(n); read(r);
+	for(int i = 0; i < n; i++){
+		if(r[i] + h >= x){
+			ps(i + 1);
+			return;
+		}
+	}
 }
 
 int main(){

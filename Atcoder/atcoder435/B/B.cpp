@@ -42,7 +42,25 @@ template <class R, class... T> void ps(const R& r,  const T &...t) {pr(r, ' '); 
 const int MX = 1e9;
 
 void ONO(){
-	
+	int n; read(n);
+	vector<int> r(n); read(r);
+	int cn = 0;
+	for(int i = 0; i < n; i++){
+		int sum = 0;
+		for(int j = i; j < n; j++){
+			sum += r[j];
+			bool ok = 1;
+			for(int k = i; k <= j; k++){
+				if(sum % r[k] == 0){
+					ok = 0;
+					break;
+				}
+			}
+			if(ok) cn++;
+		}
+	}
+	ps(cn);
+
 }
 
 int main(){

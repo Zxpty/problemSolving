@@ -42,13 +42,39 @@ template <class R, class... T> void ps(const R& r,  const T &...t) {pr(r, ' '); 
 const int MX = 1e9;
 
 void ONO(){
-	
+	int n; read(n);
+	vector<int> r(n); read(r);
+	int mx = 0;
+	vector<int> pre(n), suff(n);
+	pre[0] = r[0];
+	suff[n - 1] = r[n - 1];
+	for(int i = 1; i < n; i++){
+		pre[i] = pre[i - 1] + r[i];
+	}
+
+	for(int i = n - 2; i >= 0; i--){
+		suff[i] = suff[i + 1] + r[i];
+	}
+
+	map<int, int> mp;
+	map<int, int> amo;
+	for(int i = 0; i < n; i++){
+		mp[suff[i]] = i;
+		amo[suff[i]] = n - i;
+	}
+
+	for(int i = 0; i < n; i++){
+		if(mp.find(pre[i]) != mp.end() and mp[pre[i]] > i){
+			mx = max(mx, i + 1 + amo[pre[i]]);
+		}
+	}
+	ps(mx);
 }
 
 int main(){
 	cpu();
 	int t = 1;
-	//cin >> t;
+	cin >> t;
 	while (t--)
 	{
 		ONO();

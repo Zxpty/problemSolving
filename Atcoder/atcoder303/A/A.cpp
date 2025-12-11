@@ -42,7 +42,21 @@ template <class R, class... T> void ps(const R& r,  const T &...t) {pr(r, ' '); 
 const int MX = 1e9;
 
 void ONO(){
-	
+	int n; read(n);
+	string a, b; read(a, b);
+	for(int i = 0; i < n; i++){
+		if((a[i] == '1' and b[i] == 'l') || (a[i] == 'l' and b[i] == '1')){
+			continue;
+		}
+		if((a[i] == '0' and b[i] == 'o') || (a[i] == 'o' and b[i] == '0')){
+			continue;
+		}
+		if(a[i] == b[i]) continue;
+		ps("No");
+		return;
+	}
+	ps("Yes");
+
 }
 
 int main(){

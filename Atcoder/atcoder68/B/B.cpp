@@ -42,7 +42,12 @@ template <class R, class... T> void ps(const R& r,  const T &...t) {pr(r, ' '); 
 const int MX = 1e9;
 
 void ONO(){
-	
+	int n; read(n);
+	int start = 1;
+	while(start * 2 <= n){
+		start *= 2;
+	}
+	ps(start);
 }
 
 int main(){
