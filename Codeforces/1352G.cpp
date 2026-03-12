@@ -1,0 +1,83 @@
+#include <bits/stdc++.h>
+
+#ifdef LOCAL
+#include "debug.cpp"
+#else
+#define dbg(...)
+#endif
+#define cpu() ios::sync_with_stdio(false);cin.tie(nullptr);
+
+using namespace std;
+
+#define all(a) (a).begin(), (a).end()
+#define allr(a) (a).rbegin(), (a).rend()
+#define approx(a) fixed << setprecision(a)
+
+template <class T> void read(vector<T> &v);
+template <class F, class S> void read(pair<F, S> &p);
+template <class T, size_t Z> void read(array<T, Z> &a);
+template <class T> void read(T &x) {cin >> x;}
+template <class R, class... T> void read(R& r, T&... t){read(r); read(t...);}
+template <class T> void read(vector<T> &v) {for(auto& x : v) read(x);}
+template <class F, class S> void read(pair<F, S> &p) {read(p.first, p.second);}
+template <class T, size_t Z> void read(array<T, Z> &a) { for(auto &x : a) read(x); }
+
+template <class F, class S> void pr(const pair<F, S> &x);
+template <class T> void pr(const T &x) {cout << x;}
+template <class R, class... T> void pr(const R& r, const T&... t) {pr(r); pr(t...);}
+template <class F, class S> void pr(const pair<F, S> &x) {pr("{", x.first, ", ", x.second, "}\n");}
+void ps() {pr("\n");}
+template <class T> void ps(const T &x) {pr(x); ps();}
+template <class T> void ps(vector<T> &v) {for(auto& x : v) pr(x, ' '); ps();}
+template <class T, size_t Z> void ps(const array<T, Z> &a) { for(auto &x : a) pr(x, ' '); ps(); }
+template <class F, class S> void ps(const pair<F, S> &x) {pr(x.first, ' ', x.second); ps();}
+template <class R, class... T> void ps(const R& r,  const T &...t) {pr(r, ' '); ps(t...);}
+
+const int MX = 1e9;
+
+void ONO(){
+	int n; read(n);
+	if(n == 2){
+		ps(-1);
+		return;
+	}
+	if(n <= 5){
+		vector<int> imp, par;
+		for(int i = 1; i <= n; i++){
+			if(i & 1) imp.push_back(i);
+			else par.push_back(i);
+		}
+		sort(imp.rbegin(), imp.rend());
+		sort(par.rbegin(), par.rend());
+		vector<int> ans;
+		for(int x : imp) ans.push_back(x);
+		for(int x : par) ans.push_back(x);
+		ps(ans);
+		return;
+	}
+
+	vector<int> imp, par, ans;
+	for(int i = 1; i <= n; i++){
+		if(i == 1 || i == 4 || i == 2) continue;
+		if(i & 1) imp.push_back(i);
+		else par.push_back(i);
+	}
+	sort(imp.rbegin(), imp.rend());
+	for(int x : imp) ans.push_back(x);
+	ans.push_back(1);
+	ans.push_back(4);
+	ans.push_back(2);
+	for(int x : par) ans.push_back(x);
+	ps(ans);
+}
+
+int main(){
+	cpu();
+	int t = 1;
+	cin >> t;
+	while (t--)
+	{
+		ONO();
+	}
+	return 0;
+}

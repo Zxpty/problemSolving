@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#include <csignal>
 #define cpu() ios::sync_with_stdio(false);cin.tie(nullptr);
 using namespace std;
 /*

@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#include <cmath>
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
 
@@ -49,12 +48,25 @@ const long long MX = 1e9+7;
 
 void GA(){
 	int n; read(n);
-	int lga = log2(n - 1);
-	int pow = (1 << lga);
-	for(int i = 1; i < pow; i++) cout << i << " ";
-	cout << 0 << " " << pow << " ";
-	for(int i = pow + 1; i < n; i++) cout << i << " ";
-	cout << '\n';
+	vector<int> r(n); read(r);
+	if(n == 1){
+		ps(0);
+		return;
+	}
+	int x = r[n - 1];
+	int curr = 1;
+	for(int i = n - 2; i >= 0 && r[i] == x; i--){
+		curr++;
+	}
+	int op = 0;
+	while(curr < n){
+		curr *= 2;
+		op++;
+		while(curr < n && r[n - curr - 1] == x){
+			curr++;
+		}
+	}
+	ps(op);
 }
 
 int main(){
