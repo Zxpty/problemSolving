@@ -14,6 +14,10 @@ using namespace __gnu_pbds;
 template <class T>
 using ordered_set = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
+#define pb push_back
+#define sz(a) ((int)(a).size())
+#define ff first
+#define ss second
 #define all(a) (a).begin(), (a).end()
 #define allr(a) (a).rbegin(), (a).rend()
 #define approx(a) fixed << setprecision(a)
@@ -24,45 +28,40 @@ template <class T, size_t Z> void read(array<T, Z> &a);
 template <class T> void read(T &x) {cin >> x;}
 template <class R, class... T> void read(R& r, T&... t){read(r); read(t...);};
 template <class T> void read(vector<T> &v) {for(auto& x : v) read(x);}
-template <class F, class S> void read(pair<F, S> &p) {read(p.first, p.second);}
+template <class F, class S> void read(pair<F, S> &p) {read(p.ff, p.ss);}
 template <class T, size_t Z> void read(array<T, Z> &a) { for(auto &x : a) read(x); }
 
 template <class F, class S> void pr(const pair<F, S> &x);
 template <class T> void pr(const T &x) {cout << x;}
 template <class R, class... T> void pr(const R& r, const T&... t) {pr(r); pr(t...);}
-template <class F, class S> void pr(const pair<F, S> &x) {pr("{", x.first, ", ", x.second, "}\n");}
+template <class F, class S> void pr(const pair<F, S> &x) {pr("{", x.ff, ", ", x.ss, "}\n");}
 void ps() {pr("\n");}
 template <class T> void ps(const T &x) {pr(x); ps();}
 template <class T> void ps(vector<T> &v) {for(auto& x : v) pr(x, ' '); ps();}
 template <class T, size_t Z> void ps(const array<T, Z> &a) { for(auto &x : a) pr(x, ' '); ps(); }
-template <class F, class S> void ps(const pair<F, S> &x) {pr(x.first, ' ', x.second); ps();}
+template <class F, class S> void ps(const pair<F, S> &x) {pr(x.ff, ' ', x.ss); ps();}
 template <class R, class... T> void ps(const R& r,  const T &...t) {pr(r, ' '); ps(t...);}
 
 
-const int MX = 1e9;
+typedef int64_t i64;
+const long long MX = 1e9+7;
 
-void ONO(){
-	int n, k; read(n, k);
-	string s; read(s);
-	sort(s.begin(), s.end());
-	int ans = 1e4;
-	for(int i = 0; i < n; i++){
-		int last = (s[i] - 'a') + 1;
-		int calc = (s[i] - 'a') + 1;
-		int cn = 1;
-		for(int j = 0; j < n; j++){
-			int val = (s[j] - 'a') + 1;
-			if(cn == k) break;
-			if(val - last >= 2 and cn + 1 <= k){
-				cn++;
-				last = val;
-				calc += val;
-			}
+void GA(){
+	int n, m; read(n, m);
+	vector<int> r(n); read(r);
+	vector<int> p(m); read(p);
+	sort(r.begin(), r.end());
+	sort(p.begin(), p.end());
+	int cn = 0;
+	multiset<int> st(r.begin(), r.end());
+	for(int x : p){
+		auto it = st.lower_bound((x + 1) / 2);
+		if(it != st.end()){
+			cn++;
+			st.extract(it);
 		}
-		if(cn == k)ans = min(ans, calc);
 	}
-	if(ans == 1e4) ps(-1);
-	else ps(ans);
+	ps(cn);
 }
 
 int main(){
@@ -71,7 +70,8 @@ int main(){
 	//cin >> t;
 	while (t--)
 	{
-		ONO();
+		GA();
 	}
 	return 0;
 }
+#include <ext/pb_ds/assoc_container.hpp>
