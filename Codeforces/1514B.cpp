@@ -47,23 +47,11 @@ typedef int64_t i64;
 const long long MX = 1e9+7;
 
 void GA(){
-	int n, m; read(n, m);
-	map<int, int> mp;
-	for(int i = 0; i < n; i++){
-		int x; read(x);
-		mp[x % m]++;
-	}
-	int ans = 0;
-	if(mp[0]) ans++;
-	for(int i = 1; i < m; i++){
-		if(i > m - i) break;
-		if(i == m - i){
-			if(mp[i]) ans++;
-		}else{
-			if(mp[i] || mp[m - i]){
-				ans += max(abs(mp[i] - mp[m - i]), 1);
-			}
-		}
+	long long n, k; read(n, k);
+	long long ans = 1;
+	for(int i = 0; i < k; i++){
+		ans *= n;
+		ans %= MX;
 	}
 	ps(ans);
 }

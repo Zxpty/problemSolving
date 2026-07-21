@@ -32,12 +32,11 @@ const ll MX = 1e9+7;
 
 void solve(){
 	ll a, b; read(a, b);
-	if(b % a ==0){
-		ps(b*b / a);
-	}else{
-		ps((a*b)/(ll)__gcd(a,b));
+	if(b % a == 0){
+		ps(b * b / a);
+		return;
 	}
-
+	ps((a * b) / __gcd(a, b));
 
 }
 
