@@ -46,18 +46,26 @@ template <class R, class... T> void ps(const R& r,  const T &...t) {pr(r, ' '); 
 typedef int64_t i64;
 const long long MX = 1e9+7;
 
+int fx(int index, vector<int>& r, vector<int>& dp, int k){
+	if(index == 0){
+		return 0;
+	}
+	if(dp[index] != -1) return dp[index];
+	int mn = INT_MAX;
+	for(int i = 1; i <= k; i++){
+		if(index - i >= 0){
+			int calc = fx(index - i, r, dp, k);
+			mn = min(mn, calc + abs(r[index] - r[index - i]));
+		}
+	}
+	return dp[index] = mn;
+}
+
 void GA(){
 	int n, k; read(n, k);
 	vector<int> r(n); read(r);
-	vector<int> dp(n);
-	for(int i = 1; i < n; i++){
-		dp[i] = dp[i - 1] + abs(r[i] - r[i - 1]);
-		for(int j = 1; j <= k && i - j >= 0; j++){
-			dp[i] = min(dp[i], dp[i - j] + abs(r[i] - r[i - j]));
-		}
-	}
-	ps(dp[n - 1]);
-
+	vector<int> dp(n + 1, -1);
+	cout << fx(n - 1, r, dp, k) << '\n';
 }
 
 int main(){

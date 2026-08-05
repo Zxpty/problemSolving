@@ -1,6 +1,4 @@
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
 
 #ifdef LOCAL
 #include "debug.cpp"
@@ -10,65 +8,142 @@
 #define cpu() ios::sync_with_stdio(false);cin.tie(nullptr);
 
 using namespace std;
-using namespace __gnu_pbds;
-template <class T>
-using ordered_set = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
-#define pb push_back
-#define sz(a) ((int)(a).size())
-#define ff first
-#define ss second
-#define all(a) (a).begin(), (a).end()
-#define allr(a) (a).rbegin(), (a).rend()
-#define approx(a) fixed << setprecision(a)
+const int MX = 1e9+7;
 
-template <class T> void read(vector<T> &v);
-template <class F, class S> void read(pair<F, S> &p);
-template <class T, size_t Z> void read(array<T, Z> &a);
-template <class T> void read(T &x) {cin >> x;}
-template <class R, class... T> void read(R& r, T&... t){read(r); read(t...);};
-template <class T> void read(vector<T> &v) {for(auto& x : v) read(x);}
-template <class F, class S> void read(pair<F, S> &p) {read(p.ff, p.ss);}
-template <class T, size_t Z> void read(array<T, Z> &a) { for(auto &x : a) read(x); }
+template<typename T>
+struct segmentTree {
+	int n, size;
+	vector<T> tree;
+	T NEUTRAL;
 
-template <class F, class S> void pr(const pair<F, S> &x);
-template <class T> void pr(const T &x) {cout << x;}
-template <class R, class... T> void pr(const R& r, const T&... t) {pr(r); pr(t...);}
-template <class F, class S> void pr(const pair<F, S> &x) {pr("{", x.ff, ", ", x.ss, "}\n");}
-void ps() {pr("\n");}
-template <class T> void ps(const T &x) {pr(x); ps();}
-template <class T> void ps(vector<T> &v) {for(auto& x : v) pr(x, ' '); ps();}
-template <class T, size_t Z> void ps(const array<T, Z> &a) { for(auto &x : a) pr(x, ' '); ps(); }
-template <class F, class S> void ps(const pair<F, S> &x) {pr(x.ff, ' ', x.ss); ps();}
-template <class R, class... T> void ps(const R& r,  const T &...t) {pr(r, ' '); ps(t...);}
+	T combine(const T& a, const T& b) const {
+		return (a | b);
+	}
 
+	segmentTree() : n(0), size(0), NEUTRAL(0) {}
 
-typedef int64_t i64;
-const long long MX = 1e9+7;
+	segmentTree(int n, T nuetral_val) : n(n), NEUTRAL(nuetral_val){
+		size = 1;
+		while(size < n) size <<= 1;
+		tree.assign(2 * size, NEUTRAL);
+	}
 
-void GA(){
-	string s; read(s);
-	int n = (int) s.size();
-	int q; read(q);
-	while(q--){
-		int type; read(type);
-		if(type == 1){
-			int pos; read(pos);
-			char value; read(value);
-		}else{
-			int l, r; read(l, r);
+	segmentTree(const vector<T>& a, T neutral_val) : NEUTRAL(neutral_val){
+		init(a);
+	}
+
+	void init(const vector<T>& a){
+		n = static_cast<int>(a.size());
+		size = 1;
+		while(size < n) size <<= 1;
+		tree.assign(2 * size, NEUTRAL);
+		build(a, 0, 0, size);
+	}
+
+	void build(const vector<T>& a, int node, int left, int right){
+		if(right - left == 1){
+			if(left < n){
+				tree[node] = a[left];
+			}
+			return;
 		}
-			
+		int mid = (left + right) >> 1;
+		build(a, 2 * node + 1, left, mid);
+		build(a, 2 * node + 2, mid, right);
+		tree[node] = combine(tree[2 * node + 1], tree[2 * node + 2]);
+	}
+
+	void update(int pos, const T& val, int node, int left, int right){
+		if(right - left == 1){
+			tree[node] = val;
+			return;
+		}
+		int mid = (left + right) >> 1;
+		if(pos < mid) update(pos, val, 2 * node + 1, left, mid);
+		else update(pos, val, 2 * node + 2, mid, right);
+		tree[node] = combine(tree[2 * node + 1], tree[2 * node + 2]);
+	}
+
+	void update(int pos, T val){
+		update(pos, val, 0, 0, size);
+	}
+
+	T query(int l, int r, int node, int left, int right) const {
+		if(left >= r || right <= l) return NEUTRAL;
+		if(left >= l && right <= r) return tree[node];
+		int mid = (left + right) >> 1;
+		return combine(query(l, r, 2 * node + 1, left, mid),
+				query(l, r, 2 * node + 2, mid, right));
+	}
+
+	T query(int l, int r) const{
+		return query(l, r, 0, 0, size);
+	}
+
+	T kth_element(int k, int node, int left, int right){
+		if(right - left == 1){
+			return left;
+		}
+		int mid = (right + left) >> 1;
+		int val = tree[2 * node + 1];
+		if(k < val) return kth_element(k, 2 * node + 1, left, mid);
+		return kth_element(k - val, 2 * node + 2, mid, right);
+	}
+
+	T kth_element(T k) const {
+		return kth_element(k, 0, 0, size); 
+	}
+
+	int find_first(T x, int l, int node, int left, int right) const {
+		if(tree[node] < x || right <= l) return -1;
+		if(right - left == 1) return left;
+
+		int mid = (left + right) >> 1;
+		int res = find_first(x, l, 2 * node + 1, left, mid);
+		if(res != -1) return res;
+		return find_first(x, l, 2 * node + 2, mid, right);
+	}
+
+	int find_first(T x, int l = 0) const {
+		return find_first(x, l, 0, 0, size);
+	}
+};
+
+
+void UWU(){
+	string s; cin >> s;
+	int n = int(s.size());
+	vector<int> r(n);
+	for(int i = 0; i < n; i++){
+		r[i] = (1 << (s[i] - 'a'));
+	}
+	segmentTree<int> st(r, 0);
+	//st.print();
+	int m; cin >> m;
+	while(m--){
+		int op; cin >> op;
+		if(op == 1){
+			int pos;
+			char c;
+			cin >> pos >> c;
+			st.update(pos - 1, (1 << (c - 'a')));
+		}else{
+			int left, right; cin >> left >> right;
+			left--;
+			int ans = st.query(left, right);
+			cout << __builtin_popcount(ans) << '\n';
+		}
 	}
 }
 
 int main(){
 	cpu();
 	int t = 1;
-	cin >> t;
+	//cin >> t;
 	while (t--)
 	{
-		GA();
+		UWU();
 	}
 	return 0;
 }
