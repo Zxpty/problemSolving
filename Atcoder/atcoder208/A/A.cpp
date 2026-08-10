@@ -12,13 +12,19 @@ using namespace std;
 const int MX = 1e9+7;
 
 void UWU(){
-	
+	int a, b; cin >> a >> b;
+	int  calc = a * 6;
+	if(a <= b && calc >= b){
+		cout << "Yes";
+	}else{
+		cout << "No";
+	}
 }
 
 int main(){
 	cpu();
 	int t = 1;
-	cin >> t;
+	//cin >> t;
 	while (t--)
 	{
 		UWU();

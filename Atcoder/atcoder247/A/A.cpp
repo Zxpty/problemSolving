@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+
+#ifdef LOCAL
+#include "debug.cpp"
+#else
+#define dbg(...)
+#endif
+#define cpu() ios::sync_with_stdio(false);cin.tie(nullptr);
+
+using namespace std;
+
+const int MX = 1e9+7;
+
+void UWU(){
+	string s; cin >> s;
+	string ans(4, 0);
+	ans[0] = '0';
+	ans[1] = s[0];
+	ans[2] = s[1];
+	ans[3] = s[2];
+	cout << ans;
+}
+
+int main(){
+	cpu();
+	int t = 1;
+	//cin >> t;
+	while (t--)
+	{
+		UWU();
+	}
+	return 0;
+}
