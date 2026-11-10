@@ -1,0 +1,41 @@
+
+m = parallel straight tracks
+trakc = infinite line of unite length
+misa only see 0, 1, ... n - 1 of each track
+train{
+  pi = position of the lefmost cell at time 0
+  si = speed
+  di = direction {L, R}
+  li = length in cells
+}
+if(di == R) vi = si
+else vi = -si
+T time:
+tren:
+pi + vi * t, .... pi + vi * ti + li - 1
+engine:
+pi + vi * t + li - 1 if d == R
+pi + vi * t if d == L
+cells left is a train Car
+
+examples:
+n  m t
+10 3 3
+0 1 R 1 pi, si, di, li
+
+0 1 2 3 4 5 6 7 8 9
+= = = ! = = = = = =
+
+engine = 0 + 1 * 3 + 1 - 1 = 3
+tren = 0 + 1 * 3, .. .... 0 + 1 * 3 + 0
+tren = [3, 3] 
+
+other:
+9 1 L 1
+
+0 1 2 3 4 5 6 7 8 9
+= = = = = = = = = =
+
+engine = 9 - 3 * 1 = 6
+tren = 9 - 1 * 3, ... 9 - 1 * 3 + 1
+tren = [6, 6]
